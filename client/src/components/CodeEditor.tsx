@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Editor } from "@monaco-editor/react";
-import { io } from "socket.io-client";
 import LanguageSelector from "./LanguageSelector";
 import Output from "./Output";
 import { CODE_SNIPPETS } from "../constants/codeSnippets";
 import { Languages } from "../types/language.types";
 import useDebounce from "../hooks/useDebounce";
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
+import { io } from "socket.io-client";
 
 const socket = io("http://localhost:8080");
 
@@ -16,6 +17,9 @@ const CodeEditor = () => {
   const [value, setValue] = useState<string>("");
   const [language, setLanguage] = useState<Languages>("javascript");
   const [roomMessage, setRoomMessage] = useState<string>("");
+  const [copyStatus, setCopyStatus] = useState<"success" | "failure" | null>(
+    null
+  );
 
   // ** Debounced value that triggers socket update **
   const debouncedCode = useDebounce(value, 1000); // Wait 1000ms (1 second) after user stops typing
@@ -90,13 +94,47 @@ const CodeEditor = () => {
     });
   };
 
+  const handleCopyRoomId = () => {
+    if (!roomId) return;
+
+    navigator.clipboard
+      .writeText(`http://localhost:3000/editor/${roomId}`)
+      .then(() => {
+        setCopyStatus("success");
+      })
+      .catch(() => {
+        setCopyStatus("failure");
+      })
+      .finally(() => {
+        setTimeout(() => setCopyStatus(null), 2000);
+      });
+  };
+
   return (
     <div className="flex flex-col">
+      <div className="flex items-center justify-between mb-4">
+        {roomId && (
+          <div className="flex items-center space-x-2">
+            <p className="text-sm text-gray-400">Room ID: {roomId}</p>
+            <button
+              onClick={handleCopyRoomId}
+              className="bg-indigo-500 text-white px-2 py-1 text-xs rounded hover:bg-indigo-600"
+            >
+              Copy
+            </button>
+
+            {copyStatus === "success" && (
+              <AiOutlineCheck className="text-green-500" />
+            )}
+            {copyStatus === "failure" && (
+              <AiOutlineClose className="text-red-500" />
+            )}
+          </div>
+        )}
+      </div>
       <div className="flex space-x-4">
         <div className="w-1/2">
           <LanguageSelector language={language} onSelect={onSelect} />
-          {/* {roomMessage && <p className="text-green-500">{roomMessage}</p>} */}
-
           <Editor
             options={{
               minimap: { enabled: false },

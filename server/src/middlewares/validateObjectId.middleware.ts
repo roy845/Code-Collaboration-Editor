@@ -13,7 +13,6 @@ const validateObjectId = (
   next: NextFunction
 ): void => {
   const { objectId } = req.params;
-  console.log(objectId);
 
   if (!mongoose.Types.ObjectId.isValid(objectId!)) {
     res.status(400).json({ error: `Invalid ObjectId: ${objectId}` });

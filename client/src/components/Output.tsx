@@ -37,7 +37,7 @@ const Output = ({ editorRef, language }: OutputProps) => {
 
   return (
     <div className="w-1/2  flex flex-col justify-center items-center">
-      <p className=" text-lg">Output</p>
+      <p className="text-lg">Output</p>
 
       {/* Centered button with fixed width and height */}
       <button

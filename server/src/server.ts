@@ -68,6 +68,12 @@ io.on("connection", (socket: Socket) => {
 
       // Join the room and send initial data
       socket.join(room);
+
+      socket.on(
+        "user-join",
+        ({ room, username }: { room: string; username: string }) => {}
+      );
+
       socket.emit("room-initial-data", {
         language: existingRoom.language,
         code: existingRoom.code,

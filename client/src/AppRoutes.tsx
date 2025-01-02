@@ -9,6 +9,9 @@ import Home from "./pages/home/Home";
 import { UserRoles } from "./types/roles.types";
 import Room from "./pages/room/Room";
 import RoomNotFound from "./components/RoomNotFound";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AllRoomsPage from "./pages/admin/AllRoomsPage";
+import RoomPage from "./pages/admin/RoomPage";
 
 const AppRoutes = (): JSX.Element => {
   const router = createBrowserRouter([
@@ -52,42 +55,26 @@ const AppRoutes = (): JSX.Element => {
               path: "/room-not-found",
               element: <RoomNotFound />,
             },
-            //  {
-            //    path: "/task/:taskId",
-            //    element: <TaskPage />,
-            //  },
-            //  {
-            //    path: "/taskNotFound/:taskId",
-            //    element: <TaskNotFound />,
-            //  },
-            //  {
-            //    path: "/editTask/:taskId",
-            //    element: <EditTask />,
-            //  },
           ],
         },
-        //  {
-        //    element: <RequireAuth allowedRoles={[UserRoles.ADMIN]} />,
-        //    children: [
-        //      {
-        //        path: "/users",
-        //        element: <UsersPage />,
-        //      },
-        //      {
-        //        path: "/roles",
-        //        element: <RolesPage />,
-        //      },
-        //      {
-        //        path: "/roles/assignRoles",
-        //        element: <AssignRoles />,
-        //      },
-        //      {
-        //        path: "/roles/removeRoles",
-        //        element: <RemoveRoles />,
-        //      },
+        {
+          element: <RequireAuth allowedRoles={[UserRoles.ADMIN]} />,
+          children: [
+            {
+              path: "/admin",
+              element: <AdminDashboard />,
+            },
+            {
+              path: "/admin/rooms",
+              element: <AllRoomsPage />,
+            },
+            {
+              path: "/admin/rooms/:roomId",
+              element: <RoomPage />,
+            },
+          ],
+        },
       ],
-      //  },
-      //    ],
     },
     {
       path: "*",

@@ -5,6 +5,22 @@ class RoomService {
   static async getAllRooms() {
     return await RoomDal.getAllRooms();
   }
+
+  static async getRoomById(roomId: string) {
+    const room = await RoomDal.findRoomById(roomId);
+    let status = 0;
+    let message = "";
+
+    if (!room) {
+      message = "Room not found.";
+      status = HttpStatus.NOT_FOUND;
+      return { status, message };
+    }
+
+    status = HttpStatus.OK;
+    return { room, status };
+  }
+
   static async deleteAllRooms() {
     await RoomDal.deleteAllRooms();
   }
