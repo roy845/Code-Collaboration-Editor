@@ -7,7 +7,6 @@ import { UserResponseDto } from "../types/users.types";
 import useCustomNavigate from "../hooks/useCustomNavigate";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import MainLayout from "./layouts/MainLayout";
 import Spinner from "./common/Spinner";
 import Error from "./Error";
 import { format } from "date-fns";
@@ -65,26 +64,19 @@ const ProfileComp = ({
     }
   };
 
-  if (isLoading)
-    return (
-      <MainLayout title={`User - ${userResponse?.user?.username}`}>
-        <Spinner />
-      </MainLayout>
-    );
+  if (isLoading) return <Spinner />;
 
   if (error) {
     return (
-      <MainLayout title="User Not Found">
-        <div className="text-center mt-8">
-          <Error
-            error={
-              error?.response?.data?.error
-                ? error?.response?.data?.error
-                : error?.response?.data?.message
-            }
-          />
-        </div>
-      </MainLayout>
+      <div className="text-center mt-8">
+        <Error
+          error={
+            error?.response?.data?.error
+              ? error?.response?.data?.error
+              : error?.response?.data?.message
+          }
+        />
+      </div>
     );
   }
 
@@ -101,7 +93,7 @@ const ProfileComp = ({
     if (uploadedImage) {
       data.avatar = uploadedImage;
     }
-    console.log(data);
+
     onSubmit(data);
   };
 
