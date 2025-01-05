@@ -2,13 +2,25 @@ import { HttpStatus } from "../constants/httpStatus";
 import { ValidateObjectIdRequest } from "../middlewares/validateObjectId.middleware";
 import RoomService from "../services/RoomService";
 import { Request, Response } from "express";
+import { GetAllRoomsRequest } from "../types/roomTypes";
 
 export class RoomController {
-  static async getAllRooms(req: Request, res: Response) {
+  static async getAllRooms(req: GetAllRoomsRequest, res: Response) {
     try {
-      const rooms = await RoomService.getAllRooms();
-      res.status(HttpStatus.OK).json({ rooms });
+      const { search = "", page = 1, limit = 10 } = req.query;
+      const { rooms, totalRooms } = await RoomService.getAllRooms(
+        search as string,
+        Number(page),
+        Number(limit)
+      );
+      res.status(HttpStatus.OK).json({
+        rooms,
+        totalRooms,
+        currentPage: Number(page),
+        totalPages: Math.ceil(totalRooms / Number(limit)),
+      });
     } catch (error) {
+      console.log(error);
       res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .json({ error: "Failed to fetch rooms." });

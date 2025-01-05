@@ -1,3 +1,4 @@
+import AuthButton from "../auth/AuthButton";
 import Header from "../common/Header";
 import Links from "./Links";
 
@@ -9,6 +10,7 @@ const Topbar = ({ title }: TopbarProps): React.JSX.Element => {
     <div className="bg-[#0d0c26] p-4 text-white flex items-center justify-between shadow-lg">
       <Header sm title={title} />
       <Links />
+      <AuthButton />
     </div>
   );
 };

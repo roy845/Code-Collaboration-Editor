@@ -5,4 +5,11 @@ export const API_URLS = {
   logout: "auth/logout",
   forgotPassword: "auth/forgot-password",
   resetPassword: "auth/reset-password",
+  getAllRoles: "roles/getAllRoles",
+  getAllRolesPaginated: "roles",
+  getAllRooms: "rooms",
+  getAllUsers: "users",
+  assignRoles: "users/assignRoles/",
+  removeRoles: "users/removeRoles/",
+  removeAllRoles: "users/removeAllRoles/",
 };

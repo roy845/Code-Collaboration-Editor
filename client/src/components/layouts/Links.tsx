@@ -7,9 +7,11 @@ import { menuItemsType } from "../../types/menuItems.types";
 const Links = (): React.JSX.Element => {
   const { decodedToken, location } = useLinks();
 
+  const userId: string | undefined = decodedToken?.id;
+
   return (
     <ul className="flex">
-      {menuItems
+      {menuItems(userId as string)
         .filter((mi: menuItemsType) => {
           if (
             mi.name === "Admin" &&
@@ -20,7 +22,7 @@ const Links = (): React.JSX.Element => {
           return true;
         })
         .map((mi: menuItemsType) => {
-          const isActive: boolean = location.pathname === mi.href;
+          const isActive: boolean = location.pathname.includes(mi.href);
           return (
             <Link to={mi.href} key={mi.name}>
               <li

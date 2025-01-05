@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import env from "../config/config";
 
 const connectDB = async (): Promise<void> => {
-  const mongoUrl = process.env.MONGO_URL;
+  const mongoUrl = env.MONGO_URL;
 
   if (!mongoUrl) {
     throw new Error("MONGO_URL is not defined in the environment variables.");

@@ -19,6 +19,20 @@ class AuthDal {
   static async saveUser(user: IUser): Promise<void> {
     user.save();
   }
+
+  static async findUserByResetPasswordToken(resetPasswordToken: string) {
+    return User.findOne({ "resetPassword.token": resetPasswordToken });
+  }
+
+  static async findUserByResetPasswordTokenAndExpiresDate(
+    resetPasswordToken: string,
+    now: Date
+  ) {
+    return User.findOne({
+      "resetPassword.token": resetPasswordToken,
+      "resetPassword.expires": { $gt: now },
+    });
+  }
 }
 
 export default AuthDal;

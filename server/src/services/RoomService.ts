@@ -2,8 +2,16 @@ import { HttpStatus } from "../constants/httpStatus";
 import RoomDal from "../dal/roomDal";
 
 class RoomService {
-  static async getAllRooms() {
-    return await RoomDal.getAllRooms();
+  static async getAllRooms(search: string = "", page: number, limit: number) {
+    const skip: number = (page - 1) * limit;
+
+    const { rooms, totalRooms } = await RoomDal.getAllRooms(
+      search,
+      skip,
+      limit
+    );
+
+    return { rooms, totalRooms };
   }
 
   static async getRoomById(roomId: string) {

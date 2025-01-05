@@ -8,6 +8,8 @@ import { Languages } from "../types/language.types";
 import useDebounce from "../hooks/useDebounce";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { io } from "socket.io-client";
+import { FaArrowRight } from "react-icons/fa";
+import useCustomNavigate from "../hooks/useCustomNavigate";
 
 const socket = io("http://localhost:8080");
 
@@ -20,6 +22,8 @@ const CodeEditor = () => {
   const [copyStatus, setCopyStatus] = useState<"success" | "failure" | null>(
     null
   );
+
+  const customNavigate = useCustomNavigate();
 
   // ** Debounced value that triggers socket update **
   const debouncedCode = useDebounce(value, 1000); // Wait 1000ms (1 second) after user stops typing
@@ -131,6 +135,10 @@ const CodeEditor = () => {
             )}
           </div>
         )}
+        <FaArrowRight
+          className="text-gray-400 mr-2 cursor-pointer"
+          onClick={() => customNavigate("/home")}
+        />
       </div>
       <div className="flex space-x-4">
         <div className="w-1/2">

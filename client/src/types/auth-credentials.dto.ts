@@ -10,7 +10,14 @@ export type ForgotPasswordDto = {
   email: string;
 };
 
+export type ForgotPasswordResponseDto = {
+  message: string;
+};
+
+export type ResetPasswordResponseDto = ForgotPasswordResponseDto;
+
 export type ResetPasswordDto = {
   newPassword: string;
+  confirmNewPassword: string;
   token: string;
 };

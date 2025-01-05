@@ -13,6 +13,20 @@ export interface LoginRequestBody {
   password: string;
 }
 
+export interface ForgotPasswordRequestBody {
+  email: string;
+}
+
+export interface ResetPasswordRequestBody {
+  token: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface ForgotPasswordResponseDTO {
+  message: string;
+}
+
 export interface LoginResponseDTO {
   message: string;
   accessToken: string;

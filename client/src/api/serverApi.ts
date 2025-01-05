@@ -1,12 +1,13 @@
 import {
   ForgotPasswordDto,
+  ForgotPasswordResponseDto,
   LoginDto,
   ResetPasswordDto,
+  ResetPasswordResponseDto,
   SignupDto,
 } from "../types/auth-credentials.dto";
 import { axiosInstance, axiosPrivate, executeCodeApi } from "./api";
 import { API_URLS } from "./api-urls";
-import { AllowedRoles } from "../types/roles.types";
 import {
   Auth,
   RefreshTokenResponse,
@@ -66,7 +67,7 @@ export const logout = (): Promise<void> => {
 
 export const forgotPassword = (
   forgotPasswordDto: ForgotPasswordDto
-): Promise<{ data: string }> => {
+): Promise<{ data: ForgotPasswordResponseDto }> => {
   try {
     const { forgotPassword } = API_URLS;
 
@@ -78,7 +79,7 @@ export const forgotPassword = (
 
 export const resetPassword = (
   resetPasswordDto: ResetPasswordDto
-): Promise<{ data: string }> => {
+): Promise<{ data: ResetPasswordResponseDto }> => {
   try {
     const { resetPassword } = API_URLS;
 

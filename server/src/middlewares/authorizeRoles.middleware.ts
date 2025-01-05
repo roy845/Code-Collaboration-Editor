@@ -13,6 +13,7 @@ const authorizeRoles = (...allowedRoles: AllowedRoles) => {
       }
 
       const userRoles = req?.user?.roles as UserRole[];
+
       if (
         !userRoles ||
         !userRoles.some((role: UserRole) => allowedRoles.includes(role))

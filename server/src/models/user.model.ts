@@ -10,6 +10,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   roles: UserRole[];
+  avatar: string;
   resetPassword: {
     token: string;
     expires: Date;
@@ -54,6 +55,13 @@ const UserSchema: Schema<IUser> = new Schema<IUser>(
     refreshToken: {
       type: String,
       required: false,
+    },
+    avatar: {
+      type: String,
+      required: false,
+      trim: true,
+      default:
+        "https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png",
     },
   },
   {

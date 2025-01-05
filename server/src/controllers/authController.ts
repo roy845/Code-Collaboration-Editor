@@ -1,9 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import {
   CookieRequest,
+  ForgotPasswordRequestBody,
+  ForgotPasswordResponseDTO,
   LoginRequestBody,
   LoginResponseDTO,
   RegisterRequestBody,
+  ResetPasswordRequestBody,
 } from "../types/authTypes";
 import AuthService from "../services/authService";
 import { HttpStatus } from "../constants/httpStatus";
@@ -67,6 +70,42 @@ class AuthController {
   ): Promise<void> {
     try {
       await AuthService.logout(req, res);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async forgotPassword(
+    req: Request<{}, {}, ForgotPasswordRequestBody>,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { email } = req.body;
+      const forgotPasswordDto: ForgotPasswordRequestBody = { email };
+      const message = await AuthService.forgotPassword(forgotPasswordDto);
+
+      res.status(HttpStatus.OK).send(message);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async resetPassword(
+    req: Request<{}, {}, ResetPasswordRequestBody>,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { token, newPassword, confirmNewPassword } = req.body;
+      const resetPasswordDto: ResetPasswordRequestBody = {
+        token,
+        newPassword,
+        confirmNewPassword,
+      };
+      const message = await AuthService.resetPassword(resetPasswordDto);
+
+      res.status(HttpStatus.OK).send(message);
     } catch (error) {
       next(error);
     }

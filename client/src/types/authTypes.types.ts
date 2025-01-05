@@ -36,7 +36,7 @@ export type RefreshTokenResponse = {
 };
 
 export interface DecodedToken {
-  id: number;
+  id: string;
   exp: number;
   username: string;
   email: string;

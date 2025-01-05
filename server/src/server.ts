@@ -1,4 +1,3 @@
-import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -10,11 +9,10 @@ import corsOptions from "./config/corsOptions";
 import { Server, Socket } from "socket.io";
 import credentials from "./middlewares/credentials";
 import Room from "./models/room.model";
-
-dotenv.config();
+import env from "./config/config";
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = env.PORT || 8080;
 connectDB();
 
 app.use(express.json());

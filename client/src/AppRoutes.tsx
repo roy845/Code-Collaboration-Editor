@@ -11,7 +11,15 @@ import Room from "./pages/room/Room";
 import RoomNotFound from "./components/RoomNotFound";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AllRoomsPage from "./pages/admin/AllRoomsPage";
-import RoomPage from "./pages/admin/RoomPage";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
+import RoomDetailsPage from "./pages/admin/RoomDetailsPage";
+import UsersPage from "./pages/admin/UsersPage";
+import UserDetailsPage from "./pages/admin/UserDetailsPage";
+import RolesPage from "./pages/admin/RolesPage";
+import Profile from "./pages/profile/Profile";
+import RoleDetailsPage from "./pages/admin/RoleDetailsPage";
+import AddRolePage from "./pages/admin/AddRolePage";
 
 const AppRoutes = (): JSX.Element => {
   const router = createBrowserRouter([
@@ -23,14 +31,14 @@ const AppRoutes = (): JSX.Element => {
       path: "/signup",
       element: <Signup />,
     },
-    //  {
-    //    path: "/forgot-password",
-    //    element: <ForgotPassword />,
-    //  },
-    //  {
-    //    path: "/reset-password/:token",
-    //    element: <ResetPassword />,
-    //  },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />,
+    },
+    {
+      path: "/reset-password/:token",
+      element: <ResetPassword />,
+    },
     {
       path: "/unauthorized",
       element: <Unauthorized />,
@@ -55,6 +63,10 @@ const AppRoutes = (): JSX.Element => {
               path: "/room-not-found",
               element: <RoomNotFound />,
             },
+            {
+              path: "/profile/:userId",
+              element: <Profile />,
+            },
           ],
         },
         {
@@ -70,7 +82,27 @@ const AppRoutes = (): JSX.Element => {
             },
             {
               path: "/admin/rooms/:roomId",
-              element: <RoomPage />,
+              element: <RoomDetailsPage />,
+            },
+            {
+              path: "/admin/users",
+              element: <UsersPage />,
+            },
+            {
+              path: "/admin/users/:userId",
+              element: <UserDetailsPage />,
+            },
+            {
+              path: "/admin/roles",
+              element: <RolesPage />,
+            },
+            {
+              path: "/admin/roles/:roleId",
+              element: <RoleDetailsPage />,
+            },
+            {
+              path: "/admin/roles/new",
+              element: <AddRolePage />,
             },
           ],
         },
