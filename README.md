@@ -68,55 +68,55 @@ EMAIL_PASSWORD= </b>
 <b> Auth </b>
 
 <b> Login Page </b>
-![alt text](../assets/image.png)
+![alt text](assets/image.png)
 
 <b> Register Page </b>
-![alt text](../assets/image-1.png)
+![alt text](assets/image-1.png)
 
 <b> Forgot Password Page </b>
-![alt text](../assets/image-2.png)
+![alt text](assets/image-2.png)
 
 <b> Reset Password Page </b>
-![alt text](../assets/image-3.png)
+![alt text](assets/image-3.png)
 
 <b> Home (Join/Create Room) </b>
-![alt text](../assets/image-4.png)
+![alt text](assets/image-4.png)
 
 <b> Code Editor </b>
-![alt text](../assets/image-5.png)
+![alt text](assets/image-5.png)
 
 <b> Profile </b>
-![alt text](../assets/image-7.png)
+![alt text](assets/image-7.png)
 
 <b> Admin </b>
-![alt text](../assets/image-6.png)
+![alt text](assets/image-6.png)
 
 <b> Admin/Rooms </b>
-![alt text](../assets/image-8.png)
+![alt text](assets/image-8.png)
 
 <b> Admin/Rooms Graph Count </b>
-![alt text](../assets/image-14.png)
+![alt text](assets/image-14.png)
 
 <b> Admin/Room Details </b>
-![alt text](../assets/image-11.png)
+![alt text](assets/image-11.png)
 
 <b> Admin/Users </b>
-![alt text](../assets/image-9.png)
+![alt text](assets/image-9.png)
 
 <b> Admin/Users Graph Count </b>
-![alt text](../assets/image-15.png)
+![alt text](assets/image-15.png)
 
 <b> Admin/User Details </b>
-![alt text](../assets/image-12.png)
+![alt text](assets/image-12.png)
 
 <b> Admin/Roles </b>
-![alt text](../assets/image-10.png)
+![alt text](assets/image-10.png)
 
 <b> Admin/Roles Graph Count </b>
-![alt text](../assets/image-17.png)
+![alt text](assets/image-17.png)
 
 <b> Admin/Role Details </b>
-![alt text](../assets/image-13.png)
+![alt text](assets/image-13.png)
 
 <b> Admin/Create new Role </b>
-![alt text](../assets/image-16.png)
+![alt text](assets/image-16.png)
