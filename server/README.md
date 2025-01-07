@@ -4,8 +4,6 @@ This project implements code editor that each user that is signed up and logged 
 
 ## LIVE Deploy In React.ts And ExpressJS (May take a minute or less to load)
 
-Use Extended_Event_Intersection_Data_Expanded.xlsx file in the repository files (its in the main repository on the first page) to upload it in the tool and check the results (critical events) or enter input by yourself in the app.
-
 - There is a cron job that periodically sends a ping request to the service every 10 minutes to keep it alive, preventing it from spinning down and causing delays when accessing the site.
 
 <img src="https://www.svgrepo.com/show/316501/arrow-down-small.svg" width='260px' height='260px'/>
@@ -84,55 +82,55 @@ EMAIL_PASSWORD= </b>
 <b> Auth </b>
 
 <b> Login Page </b>
-![alt text](assets/image.png)
+![alt text](../assets/image.png)
 
 <b> Register Page </b>
-![alt text](assets/image-1.png)
+![alt text](../assets/image-1.png)
 
 <b> Forgot Password Page </b>
-![alt text](assets/image-2.png)
+![alt text](../assets/image-2.png)
 
 <b> Reset Password Page </b>
-![alt text](assets/image-3.png)
+![alt text](../assets/image-3.png)
 
 <b> Home (Join/Create Room) </b>
-![alt text](assets/image-4.png)
+![alt text](../assets/image-4.png)
 
 <b> Code Editor </b>
-![alt text](assets/image-5.png)
+![alt text](../assets/image-5.png)
 
 <b> Profile </b>
-![alt text](assets/image-7.png)
+![alt text](../assets/image-7.png)
 
 <b> Admin </b>
-![alt text](assets/image-6.png)
+![alt text](../assets/image-6.png)
 
 <b> Admin/Rooms </b>
-![alt text](assets/image-8.png)
+![alt text](../assets/image-8.png)
 
 <b> Admin/Rooms Graph Count </b>
-![alt text](assets/image-14.png)
+![alt text](../assets/image-14.png)
 
 <b> Admin/Room Details </b>
-![alt text](assets/image-11.png)
+![alt text](../assets/image-11.png)
 
 <b> Admin/Users </b>
-![alt text](assets/image-9.png)
+![alt text](../assets/image-9.png)
 
 <b> Admin/Users Graph Count </b>
-![alt text](assets/image-15.png)
+![alt text](../assets/image-15.png)
 
 <b> Admin/User Details </b>
-![alt text](assets/image-12.png)
+![alt text](../assets/image-12.png)
 
 <b> Admin/Roles </b>
-![alt text](assets/image-10.png)
+![alt text](../assets/image-10.png)
 
 <b> Admin/Roles Graph Count </b>
-![alt text](assets/image-17.png)
+![alt text](../assets/image-17.png)
 
 <b> Admin/Role Details </b>
-![alt text](assets/image-13.png)
+![alt text](../assets/image-13.png)
 
 <b> Admin/Create new Role </b>
-![alt text](assets/image-16.png)
+![alt text](../assets/image-16.png)
