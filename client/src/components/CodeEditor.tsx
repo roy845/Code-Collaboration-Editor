@@ -10,8 +10,9 @@ import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { io } from "socket.io-client";
 import { FaArrowRight } from "react-icons/fa";
 import useCustomNavigate from "../hooks/useCustomNavigate";
+import { BASE_URL_SOCKET_SERVER } from "../api/api";
 
-const socket = io("http://localhost:8080");
+const socket = io(BASE_URL_SOCKET_SERVER);
 
 const CodeEditor = () => {
   const editorRef = useRef<any>(null);
@@ -102,7 +103,7 @@ const CodeEditor = () => {
     if (!roomId) return;
 
     navigator.clipboard
-      .writeText(`http://localhost:3000/editor/${roomId}`)
+      .writeText(`${BASE_URL_SOCKET_SERVER}/editor/${roomId}`)
       .then(() => {
         setCopyStatus("success");
       })

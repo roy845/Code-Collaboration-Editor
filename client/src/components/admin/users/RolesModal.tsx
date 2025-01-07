@@ -30,6 +30,7 @@ const RolesModal: React.FC<RolesModalProps> = ({
   const customNavigate = useCustomNavigate();
 
   const [selectedRoles, setSelectedRoles] = useState<UserRoles[]>([]);
+  const [updatingRoles, setIsUpdatingRoles] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isOpen) {
@@ -54,6 +55,7 @@ const RolesModal: React.FC<RolesModalProps> = ({
       return;
     } else {
       try {
+        setIsUpdatingRoles(true);
         switch (action) {
           case "Assign":
             await axiosPrivate.put(`${API_URLS.assignRoles}${userId}`, {
@@ -87,26 +89,11 @@ const RolesModal: React.FC<RolesModalProps> = ({
         toast.error(errorMessage);
       } finally {
         onClose();
+        setIsUpdatingRoles(false);
         customNavigate("/admin/users");
       }
     }
   };
-
-  if (isLoadingRoles) {
-    return <Spinner />;
-  }
-
-  if (errorRoles) {
-    <div className="text-center mt-8">
-      <Error
-        error={
-          errorRoles?.response?.data?.error
-            ? errorRoles?.response?.data?.error
-            : errorRoles?.response?.data?.message
-        }
-      />
-    </div>;
-  }
 
   if (!isOpen) return null;
 
@@ -115,44 +102,60 @@ const RolesModal: React.FC<RolesModalProps> = ({
       <div className="bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full">
         <h3 className="text-lg font-semibold mb-4 text-white">{`${action} Roles`}</h3>
 
-        {/* Conditionally show input for Assign and Remove actions */}
-        {action !== "Remove All" && (
+        {isLoadingRoles ? (
+          <div className="flex flex-col items-center justify-center">
+            <Spinner />
+            <p className="text-white mt-4">Loading roles...</p>
+          </div>
+        ) : errorRoles ? (
+          <div className="text-center mt-8">
+            <Error
+              error={
+                errorRoles?.response?.data?.error
+                  ? errorRoles?.response?.data?.error
+                  : errorRoles?.response?.data?.message
+              }
+            />
+          </div>
+        ) : (
           <>
-            <select
-              className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-lg mb-4"
-              onChange={handleSelectChange}
-            >
-              <option value="">Select a role</option>
-              {rolesResponse?.roles.map((role) => (
-                <option key={role.name} value={role.name}>
-                  {role.name}
-                </option>
-              ))}
-            </select>
-            <div className="space-y-2">
-              {selectedRoles.map((role) => (
-                <div
-                  key={role}
-                  className="flex justify-between items-center  p-2 rounded bg-[#0d0c22]"
+            {action !== "Remove All" && (
+              <>
+                <select
+                  className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-lg mb-4"
+                  onChange={handleSelectChange}
                 >
-                  <span>{role}</span>
-                  <button
-                    className="text-red-500"
-                    onClick={() => handleRoleRemove(role)}
-                  >
-                    Remove
-                  </button>
+                  <option value="">Select a role</option>
+                  {rolesResponse?.roles.map((role) => (
+                    <option key={role.name} value={role.name}>
+                      {role.name}
+                    </option>
+                  ))}
+                </select>
+                <div className="space-y-2">
+                  {selectedRoles.map((role) => (
+                    <div
+                      key={role}
+                      className="flex justify-between items-center  p-2 rounded bg-[#0d0c22]"
+                    >
+                      <span>{role}</span>
+                      <button
+                        className="text-red-500"
+                        onClick={() => handleRoleRemove(role)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
+            {action === "Remove All" && (
+              <p className="text-white">
+                Are you sure you want to remove all roles from this user?
+              </p>
+            )}
           </>
-        )}
-
-        {/* Confirmation message for Remove All */}
-        {action === "Remove All" && (
-          <p className="text-white">
-            Are you sure you want to remove all roles from this user?
-          </p>
         )}
 
         <div className="flex justify-between gap-2 mt-4">
@@ -163,10 +166,15 @@ const RolesModal: React.FC<RolesModalProps> = ({
             Cancel
           </button>
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             onClick={handleSubmitRolesModal}
+            className={`px-6 py-2 font-semibold rounded-lg ${
+              updatingRoles
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
+            disabled={updatingRoles}
           >
-            Submit
+            {updatingRoles ? "Updating roles..." : `${action} Roles`}
           </button>
         </div>
       </div>

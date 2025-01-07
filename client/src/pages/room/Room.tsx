@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import MainLayout from "../../components/layouts/MainLayout";
 import { io } from "socket.io-client";
+import { BASE_URL_SOCKET_SERVER } from "../../api/api";
 
-const socket = io("http://localhost:8080");
+const socket = io(BASE_URL_SOCKET_SERVER);
 
 const Room = () => {
   const [room, setRoom] = useState("");

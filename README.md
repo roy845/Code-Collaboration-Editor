@@ -2,6 +2,22 @@
 
 This project implements code editor that each user that is signed up and logged in can share. there is also admin dashboard for managing code rooms,users and roles.
 
+## LIVE Deploy In React.ts And Flask (May take a minute or less to load)
+
+Use Extended_Event_Intersection_Data_Expanded.xlsx file in the repository files (its in the main repository on the first page) to upload it in the tool and check the results (critical events) or enter input by yourself in the app.
+
+- There is a cron job that periodically sends a ping request to the service every 10 minutes to keep it alive, preventing it from spinning down and causing delays when accessing the site.
+
+<img src="https://www.svgrepo.com/show/316501/arrow-down-small.svg" width='260px' height='260px'/>
+
+https://server-codecollaborateapi.onrender.com/
+
+## Swagger Docs (Server Documentation) (May take a minute or less to load)
+
+<img src="https://www.svgrepo.com/show/316501/arrow-down-small.svg" width='260px' height='260px'/>
+
+https://server-codecollaborateapi.onrender.com/api-docs
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)

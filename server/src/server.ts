@@ -10,6 +10,9 @@ import { Server, Socket } from "socket.io";
 import credentials from "./middlewares/credentials";
 import Room from "./models/room.model";
 import env from "./config/config";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger/swaggerSpec";
+import path from "path";
 
 const app = express();
 const PORT = env.PORT || 8080;
@@ -20,23 +23,34 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 app.use(credentials);
 app.use(cors(corsOptions));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api", routes);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, TypeScript with Express!");
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
 });
+
+// app.get("/", (req: Request, res: Response) => {
+//   res.send("Hello, TypeScript with Express!");
+// });
 
 app.use(errorHandler);
 
 // Server and Socket.io Setup
 const server = app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on ${PORT}`);
 });
 
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:8080",
+      "https://server-codecollaborateapi.onrender.com",
+    ],
   },
 });
 

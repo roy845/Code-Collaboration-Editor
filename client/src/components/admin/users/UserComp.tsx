@@ -6,7 +6,6 @@ import {
   UpdateUserSchema,
 } from "../../../schemas/updateUserSchema.schema";
 import { UserResponseDto } from "../../../types/users.types";
-import MainLayout from "../../layouts/MainLayout";
 import Spinner from "../../common/Spinner";
 import { format } from "date-fns";
 import Error from "../../Error";
@@ -17,15 +16,19 @@ import RolesModal from "./RolesModal";
 type UserCompProps = {
   userResponse: UserResponseDto | null;
   isLoading: boolean;
+  isUpdating: boolean;
   error: any;
   onSubmit: (data: UpdateUserFormValues) => void;
+  onDelete: () => void;
 };
 
 const UserComp: React.FC<UserCompProps> = ({
   userResponse,
   isLoading,
+  isUpdating,
   error,
   onSubmit,
+  onDelete,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState<
@@ -63,33 +66,26 @@ const UserComp: React.FC<UserCompProps> = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUploadedImage(reader.result as string); // Base64 encoded string
-        setPreviewImage(reader.result as string); // Update preview image
+        setUploadedImage(reader.result as string);
+        setPreviewImage(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  if (isLoading)
-    return (
-      <MainLayout title={`User - ${userResponse?.user?.username}`}>
-        <Spinner />
-      </MainLayout>
-    );
+  if (isLoading) return <Spinner />;
 
   if (error) {
     return (
-      <MainLayout title="User Not Found">
-        <div className="text-center mt-8">
-          <Error
-            error={
-              error?.response?.data?.error
-                ? error?.response?.data?.error
-                : error?.response?.data?.message
-            }
-          />
-        </div>
-      </MainLayout>
+      <div className="text-center mt-8">
+        <Error
+          error={
+            error?.response?.data?.error
+              ? error?.response?.data?.error
+              : error?.response?.data?.message
+          }
+        />
+      </div>
     );
   }
 
@@ -118,6 +114,7 @@ const UserComp: React.FC<UserCompProps> = ({
         action={modalAction}
         userId={userResponse?.user?._id as string}
       />
+
       <form
         className="bg-gray-800 p-6 rounded-lg"
         onSubmit={handleSubmit(handleFormSubmit)}
@@ -221,9 +218,23 @@ const UserComp: React.FC<UserCompProps> = ({
           {/* Submit Button */}
           <button
             type="submit"
-            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
+            className={`px-6 py-2 font-semibold rounded-lg ${
+              isUpdating
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
+            disabled={isUpdating}
           >
-            Update User
+            {isUpdating ? "Updating User..." : "Update User"}
+          </button>
+          <button
+            type="button"
+            className={
+              "px-6 py-2 font-semibold rounded-lg bg-red-600 hover:bg-red-700 text-white"
+            }
+            onClick={onDelete}
+          >
+            Delete User
           </button>
           <button
             type="button"

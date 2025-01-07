@@ -20,6 +20,7 @@ import { HttpStatus } from "../constants/httpStatus";
 import ResetPasswordTemplate from "../templates/resetPassword";
 import mailService from "./mailService";
 import { CronJob } from "cron";
+import { BASE_URL } from "../config/urls";
 
 class AuthService {
   private static readonly EXPIRES_AT: number = 15 * 60 * 1000;
@@ -178,7 +179,7 @@ class AuthService {
     } else {
       const token = Utils.generateResetPasswordToken();
       const expiresAt: Date = new Date(Date.now() + AuthService.EXPIRES_AT);
-      const resetLink: string = `http://localhost:3000/reset-password/${token}`;
+      const resetLink: string = `${BASE_URL}/reset-password/${token}`;
       const resetPassword: ResetPasswordDTO = { token, expires: expiresAt };
       user.resetPassword = resetPassword;
       await AuthDal.saveUser(user);

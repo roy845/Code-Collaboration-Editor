@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { CustomJWTPayload, JWTPayload } from "../types/authTypes";
 import jwt from "jsonwebtoken";
 import env from "../config/config";

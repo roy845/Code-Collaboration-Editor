@@ -15,6 +15,7 @@ const useUserDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmationText, setConfirmationText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const {
     data: userResponse,
@@ -43,11 +44,15 @@ const useUserDetails = () => {
 
   const handleUpdate = async (data: UpdateUserFormValues) => {
     try {
+      setIsUpdating(true);
       await axiosPrivate.put(`${API_URLS.getAllUsers}/${userId}`, data);
       toast.success("User updated successfully!");
       navigate("/admin/users");
     } catch (err) {
       toast.error("Failed to update the user.");
+    } finally {
+      setIsUpdating(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -62,6 +67,7 @@ const useUserDetails = () => {
     toggleModal,
     handleDelete,
     handleUpdate,
+    isUpdating,
   };
 };
 

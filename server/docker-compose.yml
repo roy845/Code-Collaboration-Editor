@@ -1,30 +1,29 @@
 version: "3.8"
 
 services:
-  # codeapi:
-  #   build: .
-  #   ports:
-  #     - "8080:8080"
-  #   env_file:
-  #     - .env
-
-  #   develop:
-  #     watch:
-  #       - path: .
-  #         target: /app
-  #         action: sync
-
-  #   depends_on:
-  #     - mongodb
-
-  mongodb:
-    image: mongo:6.0
+  codecollaborateapi:
+    build: .
+    ports:
+      - "8080:8080"
     env_file:
       - .env
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
 
-volumes:
-  mongo_data:
+    develop:
+      watch:
+        - path: .
+          target: /app
+          action: sync
+#     depends_on:
+#       - mongodb
+
+#   mongodb:
+#     image: mongo:6.0
+#     env_file:
+#       - .env
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - mongo_data:/data/db
+
+# volumes:
+#   mongo_data:

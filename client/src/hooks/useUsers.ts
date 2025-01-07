@@ -98,7 +98,7 @@ const useUsers = () => {
       },
       title: {
         display: true,
-        text: "Rooms Chart",
+        text: "Users Chart",
       },
     },
   };

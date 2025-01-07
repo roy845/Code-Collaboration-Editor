@@ -15,6 +15,7 @@ const useRoleDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmationText, setConfirmationText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const {
     data: roleResponse,
@@ -43,6 +44,7 @@ const useRoleDetails = () => {
 
   const handleUpdate = async (data: UpdateRoleData) => {
     try {
+      setIsUpdating(true);
       await axiosPrivate.put(
         `${API_URLS.getAllRolesPaginated}/${roleId}`,
         data
@@ -51,6 +53,9 @@ const useRoleDetails = () => {
       navigate("/admin/roles");
     } catch (err) {
       toast.error("Failed to update the role.");
+    } finally {
+      setIsUpdating(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -61,6 +66,7 @@ const useRoleDetails = () => {
     isModalOpen,
     confirmationText,
     isDeleting,
+    isUpdating,
     setConfirmationText,
     toggleModal,
     handleDelete,

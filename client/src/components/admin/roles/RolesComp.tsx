@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import MainLayout from "../../layouts/MainLayout";
-import Spinner from "../../common/Spinner";
-import Error from "../../Error";
 import { FaArrowRight } from "react-icons/fa";
 import { RoleResponseDto } from "../../../types/roles.types";
 import {
@@ -14,16 +11,14 @@ import { useNavigate } from "react-router-dom";
 
 type RoleCompProps = {
   roleResponseDto: RoleResponseDto | null;
-  isLoading: boolean;
-  error: any;
+  isUpdating: boolean;
   onSubmit: (data: UpdateRoleData) => void;
   onDelete: () => void;
 };
 
 const RoleComp: React.FC<RoleCompProps> = ({
   roleResponseDto,
-  isLoading,
-  error,
+  isUpdating,
   onSubmit,
   onDelete,
 }) => {
@@ -45,29 +40,6 @@ const RoleComp: React.FC<RoleCompProps> = ({
       });
     }
   }, [roleResponseDto, reset]);
-
-  if (isLoading)
-    return (
-      <MainLayout title={`Role - ${roleResponseDto?.role?.name}`}>
-        <Spinner />
-      </MainLayout>
-    );
-
-  if (error) {
-    return (
-      <MainLayout title="Role Not Found">
-        <div className="text-center mt-8">
-          <Error
-            error={
-              error?.response?.data?.error
-                ? error?.response?.data?.error
-                : error?.response?.data?.message
-            }
-          />
-        </div>
-      </MainLayout>
-    );
-  }
 
   return (
     <>
@@ -98,9 +70,14 @@ const RoleComp: React.FC<RoleCompProps> = ({
           {/* Submit Button */}
           <button
             type="submit"
-            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
+            className={`px-6 py-2 font-semibold rounded-lg ${
+              isUpdating
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
+            disabled={isUpdating}
           >
-            Update Role
+            {isUpdating ? "Updating Role..." : "Update Role"}
           </button>
           <button
             type="button"

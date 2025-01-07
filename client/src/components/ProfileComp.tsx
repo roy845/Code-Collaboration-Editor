@@ -15,6 +15,7 @@ import { FaArrowRight, FaUpload } from "react-icons/fa";
 type ProfileCompProps = {
   userResponse: UserResponseDto | null;
   isLoading: boolean;
+  isUpdating: boolean;
   error: any;
   onSubmit: (data: UpdateUserFormValues) => void;
 };
@@ -22,6 +23,7 @@ type ProfileCompProps = {
 const ProfileComp = ({
   error,
   isLoading,
+  isUpdating,
   onSubmit,
   userResponse,
 }: ProfileCompProps) => {
@@ -57,8 +59,8 @@ const ProfileComp = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUploadedImage(reader.result as string); // Base64 encoded string
-        setPreviewImage(reader.result as string); // Update preview image
+        setUploadedImage(reader.result as string);
+        setPreviewImage(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -201,9 +203,14 @@ const ProfileComp = ({
         {/* Submit Button */}
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
+          className={`px-6 py-2 font-semibold rounded-lg ${
+            isUpdating
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 text-white"
+          }`}
+          disabled={isUpdating}
         >
-          Update User
+          {isUpdating ? "Updating User..." : "Update User"}
         </button>
       </div>
     </form>

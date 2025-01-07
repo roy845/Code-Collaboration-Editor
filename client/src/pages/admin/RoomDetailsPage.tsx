@@ -18,9 +18,15 @@ const RoomDetailsPage = () => {
     handleDelete,
   } = useRoomDetails();
 
+  const pageTitle = isLoading
+    ? "Loading Room..."
+    : roomResponse
+    ? `Room - ${roomResponse?.room?._id}`
+    : "Room Not Found";
+
   if (isLoading) {
     return (
-      <MainLayout title="Room">
+      <MainLayout title={pageTitle}>
         <div className="flex justify-center items-center h-40">
           <Spinner />
         </div>
@@ -30,7 +36,7 @@ const RoomDetailsPage = () => {
 
   if (error) {
     return (
-      <MainLayout title="Room Not Found">
+      <MainLayout title={pageTitle}>
         <div className="text-center mt-8">
           <Error
             error={
@@ -46,7 +52,7 @@ const RoomDetailsPage = () => {
 
   if (!roomResponse) {
     return (
-      <MainLayout title="Room Not Found">
+      <MainLayout title={pageTitle}>
         <div className="text-center mt-8">
           <Error error={"Room not found"} />
         </div>
@@ -55,7 +61,7 @@ const RoomDetailsPage = () => {
   }
 
   return (
-    <MainLayout title={`Room - ${roomResponse?.room?._id}`}>
+    <MainLayout title={pageTitle}>
       <RoomComp room={roomResponse?.room} onDelete={toggleModal} />
       {isModalOpen && (
         <ConfirmDeleteRoomModal

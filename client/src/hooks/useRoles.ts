@@ -98,7 +98,7 @@ const useRoles = () => {
       },
       title: {
         display: true,
-        text: "Rooms Chart",
+        text: "Roles Chart",
       },
     },
   };
